@@ -27,6 +27,36 @@ The FastEPD examples **do not work right now**. The current FastEPD release has 
 
 Use M5Unified / M5GFX (as in all the other sketches) instead.
 
+## Hardware notes
+
+Panel: E Ink **ED047TC1**, 4.7", 540×960, 16 gray levels, 8-bit parallel interface
+([datasheet](https://m5stack-doc.oss-cn-shenzhen.aliyuncs.com/517/C139_ED047TC1_datasheet.pdf)).
+Board design: [PaperDIY schematic](https://m5stack-doc.oss-cn-shenzhen.aliyuncs.com/1288/K159-B_PaperDIY_sche.pdf).
+
+**Panel connector:** 44 pins, 0.4 mm pitch. The panel has a Panasonic header
+[AXE644224](https://industry.panasonic.com/global/en/products/control/connector/base-fpc/number/axe644224);
+the board has the mating socket
+[AXE544127](https://industry.panasonic.com/global/en/products/control/connector/base-fpc/number/axe544127) (`EPD1` in the schematic).
+
+**ESP32-S3 pins to the panel** (as configured in [M5GFX](https://github.com/m5stack/M5GFX)):
+
+| Panel signal | GPIO |
+| --- | --- |
+| D0–D7 | 6, 14, 7, 12, 9, 11, 8, 10 |
+| XCL (clock) | 16 |
+| XLE (latch) | 15 |
+| XSTL / SPH (source start) | 13 |
+| XOE (output enable) | 45 |
+| CKV (gate clock) | 18 |
+| SPV (gate start) | 17 |
+| Panel power (boost converter) | 46, plus M5PM1 GPIO2 over I2C (SDA 41, SCL 42) |
+
+### Libraries that do not drive this panel
+
+- **GxEPD2** and **[GxEPD_HD](https://github.com/ZinggJM/GxEPD_HD)** cover SPI panels and Good Display / Waveshare HD panels. Neither has an ED047TC1 class. Online examples that use `GxEPD2_470_T75` with PaperDIY pins are wrong.
+- **[LilyGo-EPD47](https://github.com/Xinyuan-LilyGO/LilyGo-EPD47)** drives the same panel, but on different GPIOs and with a shift register for the control signals. It would need a pin remap and the M5PM1 power-up sequence.
+- **FastEPD**: see above.
+
 ## Setup
 
 Board: `m5stack:esp32:m5stack_paperdiy`, PSRAM: **OPI PSRAM**.
