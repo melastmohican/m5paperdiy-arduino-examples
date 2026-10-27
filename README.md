@@ -2,6 +2,8 @@
 
 Arduino sketches for the [M5Stack PaperDIY](https://docs.m5stack.com/en/arduino/paperdiy/program) (ESP32-S3, 4.7" e-paper, two buttons, microSD, PM1 power chip).
 
+<img src="images/m5paperdiy.jpg" alt="M5Stack PaperDIY board" width="600">
+
 Most sketches come straight from the official M5Stack
 [PaperDIY Arduino program docs](https://docs.m5stack.com/en/arduino/paperdiy/program), with small tweaks along the way. `EpubReader` and `FastEPD` come from elsewhere (see below).
 
