@@ -19,6 +19,8 @@ Most sketches come straight from the official M5Stack
 | [FactoryTest](FactoryTest) | Port of the M5Paper factory test: checklist, refresh-mode compare, gray ramp, Life game | Works |
 | [PaperDIYUserDemo](PaperDIYUserDemo) | Port of the ESP-IDF user demo: battery, Wi-Fi scan, TF card speed test | Works |
 | [EpubReader](EpubReader) | EPUB reader, port of [atomic14/diy-esp32-epub-reader](https://github.com/atomic14/diy-esp32-epub-reader). See its [README](EpubReader/README.md) | Works |
+| [EpdFastCounter](EpdFastCounter) | Counter on the M5GFX `epd_fast` mode, reference for the Rust `epdpi` FastMono example | Works |
+| [EpdQualityRamp](EpdQualityRamp) | 16-level gray ramp on the M5GFX `epd_quality` mode, reference for the Rust `epdpi` M5Quality example | Works |
 | [FastEPD/animated_smiles](FastEPD/animated_smiles) | Animation with [FastEPD](https://github.com/bitbank2/FastEPD) | **Does not work** (see below) |
 
 ## Known issue: FastEPD examples
