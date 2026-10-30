@@ -17,7 +17,7 @@ Most sketches come straight from the official M5Stack
 | [microSD](microSD) | Reads `PaperDIY_01.png` / `PaperDIY_02.png` from the SD card and shows them | Works |
 | [M5PM1](M5PM1) | Talks to the PM1 power-management chip (battery, power) | Works |
 | [FactoryTest](FactoryTest) | Port of the M5Paper factory test: checklist, refresh-mode compare, gray ramp, Life game | Works |
-| [PaperDIYUserDemo](PaperDIYUserDemo) | Port of the ESP-IDF user demo: battery, Wi-Fi scan, TF card speed test | Works |
+| [PaperDIYUserDemo](PaperDIYUserDemo) | Port of the [ESP-IDF user demo](https://github.com/m5stack/M5PaperDIY-UserDemo): battery, Wi-Fi scan, TF card speed test | Works |
 | [EpubReader](EpubReader) | EPUB reader, port of [atomic14/diy-esp32-epub-reader](https://github.com/atomic14/diy-esp32-epub-reader). See its [README](EpubReader/README.md) | Works |
 | [EpdFastCounter](EpdFastCounter) | Counter on the M5GFX `epd_fast` mode, reference for the Rust `epdpi` FastMono example | Works |
 | [EpdModesCounter](EpdModesCounter) | Counter in the M5GFX `epd_fast`, `epd_fastest` and `epd_text` modes, five updates each, with a full `epd_quality` clear before each mode. Serial prints the time per update. Reference for the Rust `epdpi_m5_modes` example (on the `bringup` branch of `rust-m5paperdiy-examples`) | Works |

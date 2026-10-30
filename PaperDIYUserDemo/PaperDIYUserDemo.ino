@@ -1,4 +1,5 @@
-// M5Stack PaperDIY (K159 / K159-B) user demo, ported from the ESP-IDF project.
+// M5Stack PaperDIY (K159 / K159-B) user demo, ported from the ESP-IDF project
+// https://github.com/m5stack/M5PaperDIY-UserDemo.
 //
 //   - battery voltage (updates every 10 s)
 //   - Wi-Fi scan (button A rescans)
