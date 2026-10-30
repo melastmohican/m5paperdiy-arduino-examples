@@ -21,13 +21,25 @@ Most sketches come straight from the official M5Stack
 | [EpubReader](EpubReader) | EPUB reader, port of [atomic14/diy-esp32-epub-reader](https://github.com/atomic14/diy-esp32-epub-reader). See its [README](EpubReader/README.md) | Works |
 | [EpdFastCounter](EpdFastCounter) | Counter on the M5GFX `epd_fast` mode, reference for the Rust `epdpi` FastMono example | Works |
 | [EpdQualityRamp](EpdQualityRamp) | 16-level gray ramp on the M5GFX `epd_quality` mode, reference for the Rust `epdpi` M5Quality example | Works |
-| [FastEPD/animated_smiles](FastEPD/animated_smiles) | Animation with [FastEPD](https://github.com/bitbank2/FastEPD) | **Does not work** (see below) |
+| [FastEPD/animated_smiles](FastEPD/animated_smiles) | Eight smileys bounce for 250 frames with [FastEPD](https://github.com/bitbank2/FastEPD) partial updates | Works with FastEPD `main` (see below) |
 
-## Known issue: FastEPD examples
+## FastEPD example
 
-The FastEPD examples **do not work right now**. The current FastEPD release has no definition for the PaperDIY panel, so `initPanel()` / `setPanelSize()` can't drive this display. The sketch is kept in the repo for reference and will be revisited when FastEPD adds support for the panel.
+[FastEPD/animated_smiles](FastEPD/animated_smiles) needs FastEPD from its **`main` branch**, not the 2.2.0 release (Apr 2026). The release has no panel definition that fits the PaperDIY and no `BBEP_DISPLAY_ED047TC1` (added to `main` on 15 Aug 2026), so the sketch as it came did not compile.
 
-Use M5Unified / M5GFX (as in all the other sketches) instead.
+What the sketch does differently from FastEPD's own example:
+
+- It initialises the panel with `BB_PANEL_M5PAPERS3`. The PaperDIY wires the ED047TC1 like the PaperS3: the same 8 data pins and control lines (see the pin table below), and that definition already carries the 960 x 540 size and the M5 waveform. `BB_PANEL_V7_RAW`, which the original example used, is the EPDiy pin map and is wrong for this board.
+- It switches the panel supply on first. GPIO2 of the M5PM1 power chip gates it (I2C 0x6E on SDA 41 / SCL 42), and FastEPD does not know about it. The sketch does the same register writes as M5GFX at board detect, and switches it off at the end.
+
+Checked on the board: the smileys bounce, and because the sketch never clears the screen each one leaves two long diagonal trails (the bits of outline that touch the edge of its square). After 250 frames the panel clears to white and powers down, with faint ghosts of the smileys left.
+
+Build against a clone of FastEPD `main` without touching an installed copy:
+
+```
+git clone https://github.com/bitbank2/FastEPD ~/Src/tmp/FastEPD
+arduino-cli compile --fqbn m5stack:esp32:m5stack_paperdiy:PSRAM=opi --library ~/Src/tmp/FastEPD FastEPD/animated_smiles
+```
 
 ## Hardware notes
 
@@ -57,7 +69,6 @@ the board has the mating socket
 
 - **GxEPD2** and **[GxEPD_HD](https://github.com/ZinggJM/GxEPD_HD)** cover SPI panels and Good Display / Waveshare HD panels. Neither has an ED047TC1 class. Online examples that use `GxEPD2_470_T75` with PaperDIY pins are wrong.
 - **[LilyGo-EPD47](https://github.com/Xinyuan-LilyGO/LilyGo-EPD47)** drives the same panel, but on different GPIOs and with a shift register for the control signals. It would need a pin remap and the M5PM1 power-up sequence.
-- **FastEPD**: see above.
 
 ## Setup
 
@@ -68,6 +79,7 @@ Install from the Library Manager:
 - **M5Unified**
 - **M5GFX**
 - **M5PM1** (only for the `M5PM1` sketch)
+- **FastEPD** from its `main` branch, not the release (only for `FastEPD/animated_smiles`, see [FastEPD example](#fastepd-example))
 
 SD, SPI and WiFi come with the ESP32 core.
 
