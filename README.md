@@ -33,7 +33,7 @@ What the sketch does differently from FastEPD's own example:
 - It initialises the panel with `BB_PANEL_M5PAPERS3`. The PaperDIY wires the ED047TC1 like the PaperS3: the same 8 data pins and control lines (see the pin table below), and that definition already carries the 960 x 540 size and the M5 waveform. `BB_PANEL_V7_RAW`, which the original example used, is the EPDiy pin map and is wrong for this board.
 - It switches the panel supply on first. GPIO2 of the M5PM1 power chip gates it (I2C 0x6E on SDA 41 / SCL 42), and FastEPD does not know about it. The sketch does the same register writes as M5GFX at board detect, and switches it off at the end.
 
-Checked on the board: the smileys bounce, and because the sketch never clears the screen each one leaves two long diagonal trails (the bits of outline that touch the edge of its square). After 250 frames the panel clears to white and powers down, with faint ghosts of the smileys left.
+Checked on the board: the smileys bounce, and because the sketch never clears the screen each one leaves two long diagonal trails (the bits of outline that touch the edge of its square). After 250 frames the panel clears to white and powers down, and the blank screen shows no ghosting.
 
 Build against a clone of FastEPD `main` without touching an installed copy:
 
