@@ -1,8 +1,7 @@
 # EpubReader (M5Stack PaperDIY)
 
 Port of [atomic14/diy-esp32-epub-reader](https://github.com/atomic14/diy-esp32-epub-reader)
-to Arduino + M5Unified / M5GFX. A PlatformIO version lives in
-`PlatformIO/examples/m5paperdiy-epub-reader`.
+to Arduino + M5Unified / M5GFX.
 
 Board: `m5stack:esp32:m5stack_paperdiy`, PSRAM: OPI PSRAM.
 
