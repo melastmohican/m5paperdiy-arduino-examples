@@ -4,6 +4,8 @@ Arduino sketches for the [M5Stack PaperDIY](https://docs.m5stack.com/en/arduino/
 
 <img src="images/m5paperdiy.jpg" alt="M5Stack PaperDIY board" width="600">
 
+The last seven rows (`FastEPD/macpaint_hello`, `show_jpeg`, `gif_player`, `grayscale_test`, `OpenMeteoWeather`, `News`, `Quotables`) are ports from [lilygot5-47-s3-arduino-examples](https://github.com/melastmohican/lilygot5-47-s3-arduino-examples), the same demos for the LilyGo T5 4.7" board. The FastEPD ones keep their original names and use the same PM1 power-on code as `animated_smiles`. The weather, news and quote sketches are rewritten on M5GFX with its built-in fonts.
+
 Most sketches come straight from the official M5Stack
 [PaperDIY Arduino program docs](https://docs.m5stack.com/en/arduino/paperdiy/program), with small tweaks along the way. `EpubReader` and `FastEPD` come from elsewhere (see below).
 
@@ -23,6 +25,13 @@ Most sketches come straight from the official M5Stack
 | [EpdModesCounter](EpdModesCounter) | Counter in the M5GFX `epd_fast`, `epd_fastest` and `epd_text` modes, five updates each, with a full `epd_quality` clear before each mode. Serial prints the time per update. Reference for the Rust `epdpi_m5_modes` example (on the `bringup` branch of `rust-m5paperdiy-examples`) | Works |
 | [EpdQualityRamp](EpdQualityRamp) | 16-level gray ramp on the M5GFX `epd_quality` mode, reference for the Rust `epdpi` M5Quality example | Works |
 | [FastEPD/animated_smiles](FastEPD/animated_smiles) | Eight smileys bounce for 250 frames with [FastEPD](https://github.com/bitbank2/FastEPD) partial updates | Works with FastEPD `main` (see below) |
+| [FastEPD/macpaint_hello](FastEPD/macpaint_hello) | MacPaint "hello" handwriting animation with FastEPD partial updates, runs once. Uses 5 passes because 3 left the text pale | Works |
+| [FastEPD/show_jpeg](FastEPD/show_jpeg) | Shows `mocha800x480.jpg` as 16 grays (JPEGDEC) | Works |
+| [FastEPD/gif_player](FastEPD/gif_player) | Plays an animated GIF once (AnimatedGIF), 1-bit | Works |
+| [FastEPD/grayscale_test](FastEPD/grayscale_test) | 16 gray swatches with FastEPD, the FastEPD counterpart of `EpdQualityRamp` | Works |
+| [OpenMeteoWeather](OpenMeteoWeather) | Weather dashboard from [Open-Meteo](https://open-meteo.com) (no API key): current conditions, 6-day forecast, hourly chart. Needs `secret.h` | Works |
+| [News](News) | Top headlines from NewsAPI. Needs `secret.h` with a free [NewsAPI](https://newsapi.org/) key | Works |
+| [Quotables](Quotables) | Random quote from the quotable API. Needs `secret.h` | Works |
 
 ## FastEPD example
 
@@ -80,7 +89,8 @@ Install from the Library Manager:
 - **M5Unified**
 - **M5GFX**
 - **M5PM1** (only for the `M5PM1` sketch)
-- **FastEPD** from its `main` branch, not the release (only for `FastEPD/animated_smiles`, see [FastEPD example](#fastepd-example))
+- **FastEPD** from its `main` branch, not the release (only for the `FastEPD/*` sketches, see [FastEPD example](#fastepd-example))
+- **JPEGDEC** (`FastEPD/show_jpeg`), **AnimatedGIF** (`FastEPD/gif_player`), **ArduinoJson** 7 (`OpenMeteoWeather`, `News`, `Quotables`)
 
 SD, SPI and WiFi come with the ESP32 core.
 
@@ -92,6 +102,10 @@ arduino-cli upload -p <port> --fqbn m5stack:esp32:m5stack_paperdiy:PSRAM=opi But
 ```
 
 Replace `Button` with any sketch folder.
+
+## Sketches that need secret.h
+
+`OpenMeteoWeather`, `News` and `Quotables` read WiFi credentials (and `NEWS_API_KEY` for `News`) from a `secret.h` in their folder. Copy `secret.h.example` to `secret.h` and fill it in. `secret.h` is gitignored.
 
 ## microSD sketch
 
